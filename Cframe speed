@@ -1,0 +1,48 @@
+--[[
+this was the funnest project i had i accumalated around 5k robux from donors and stuff but this is officially my goodbye please use this script and enjoy it i will not be updating it for isles 10 unless i get heavy motivation...
+Goodbye
+- realre
+--]]
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
+local Window = OrionLib:MakeWindow({
+    Name = "Krypton Speed module",
+    HidePremium = false,
+    SaveConfig = true,
+    ConfigFolder = "BlotusConfig"
+})
+local PlayerTab = Window:MakeTab({
+    Name = "Player",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+-- This is the speed module Without anticheat bypasser
+local speedValue = 50  
+local currentPosition = nil
+local function moveCharacter()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    if humanoidRootPart then
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if speedValue > 0 then
+                humanoidRootPart.CFrame = humanoidRootPart.CFrame + humanoidRootPart.CFrame.LookVector * speedValue / 50
+            end
+        end)
+    end
+end
+PlayerTab:AddSlider({
+    Name = "Speed Adjust",
+    Min = 1,
+    Max = 200,
+    Default = speedValue,
+    Color = Color3.new(0, 1, 0),
+    Increment = 1,
+    ValueName = "Speed",
+    Callback = function(Value)
+        speedValue = Value
+    end
+})
+moveCharacter()
+OrionLib:Init()
